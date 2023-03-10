@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "yarn setup && next build",
+    "test:e2e":"npm run test",
+    "test:e2e:build":"npm run build",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --ignore-path .gitignore --write \"**/*.{js,ts,tsx}\"",
