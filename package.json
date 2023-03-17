@@ -9,8 +9,7 @@
     "lint": "next lint",
     "format": "yarn global add prettier --ignore-path .gitignore --write \"**/*.{js,ts,tsx}\"",
     "copy-rui": "cp index.js node_modules/",
-    "setup": "yarn && node server/script/initializeStore && yarn copy-rui && yarn format",
-    "postinstall": "yarn generate"
+    "setup": "yarn && node server/script/initializeStore && yarn copy-rui && yarn format"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
