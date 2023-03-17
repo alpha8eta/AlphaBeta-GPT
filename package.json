@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next",
-    "build": "next build",
+    "dev": "next dev",
+    "build": "yarn setup && next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "yarn global add prettier --ignore-path .gitignore --write \"**/*.{js,ts,tsx}\"",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.{js,ts,tsx}\"",
     "copy-rui": "cp index.js node_modules/",
     "setup": "yarn && node server/script/initializeStore && yarn copy-rui && yarn format"
   },
