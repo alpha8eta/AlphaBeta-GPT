@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start",
+    "dev": "yarn dev",
+    "build": "yarn build",
+    "start": "yarn start",
     "lint": "next lint",
     "format": "yarn global add prettier --ignore-path .gitignore --write \"**/*.{js,ts,tsx}\"",
     "copy-rui": "cp index.js node_modules/",
