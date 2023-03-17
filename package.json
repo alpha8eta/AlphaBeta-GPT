@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "yarn setup && next build",
-    "start": "next start",
+    "start": "next start && yarn add --dev typescript @types/react @types/node",
     "lint": "next lint",
     "format": "yarn global add prettier --ignore-path .gitignore --write \"**/*.{js,ts,tsx}\"",
     "copy-rui": "cp index.js node_modules/",
