@@ -7,11 +7,13 @@
     "build": "yarn setup && next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "yarn add --dev typescript @types/react @types/node && yarn global add prettier --ignore-path .gitignore --write \"**/*.{js,ts,tsx}\"",
+    "format": "yarn global add prettier --ignore-path .gitignore --write \"**/*.{js,ts,tsx}\"",
     "copy-rui": "cp index.js node_modules/",
     "setup": "yarn && node server/script/initializeStore && yarn copy-rui && yarn format"
   },
   "dependencies": {
+  },
+  "devDependencies": {
     "@emotion/react": "^11.10.6",
     "@react-aria/button": "^3.6.4",
     "@react-aria/focus": "^3.8.0",
@@ -40,9 +42,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "sanitize-html": "^2.9.0",
-    "sass": "^1.58.2"
-  },
-  "devDependencies": {
+    "sass": "^1.58.2",
     "@types/marked": "^4.0.8",
     "@types/node": "18.13.0",
     "@types/react": "18.0.28",
