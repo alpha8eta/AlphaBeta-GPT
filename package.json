@@ -7,7 +7,7 @@
     "build": "yarn setup && next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --ignore-path .gitignore --write \"**/*.{js,ts,tsx}\"",
+    "format": "--global prettier --ignore-path .gitignore --write \"**/*.{js,ts,tsx}\"",
     "copy-rui": "cp index.js node_modules/",
     "setup": "yarn && node server/script/initializeStore && yarn copy-rui && yarn format"
   },
