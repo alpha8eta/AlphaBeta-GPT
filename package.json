@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next",
-    "build": "yarn setup && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "format": "yarn global add prettier --ignore-path .gitignore --write \"**/*.{js,ts,tsx}\"",
