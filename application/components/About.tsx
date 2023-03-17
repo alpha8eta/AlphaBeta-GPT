@@ -1,4 +1,4 @@
-import { View, text, tokens, rcss, Button, Text } from "node_modules";
+import { View, text, tokens, rcss, Button, Text } from "react-native";
 import { MarkdownWrapper } from "./MarkdownWrapper";
 
 export default function About() {
