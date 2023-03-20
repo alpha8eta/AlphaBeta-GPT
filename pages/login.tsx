@@ -93,7 +93,6 @@ export default function Login() {
 
 export async function getServerSideProps({
   req,
-  res,
 }: {
   req: NextApiRequest;
   res: NextApiResponse;

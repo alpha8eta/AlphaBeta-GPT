@@ -129,7 +129,9 @@ const Home = ({ image, username }) => {
     updateFocusAndScroll();
   }, [history, loading, lastMessage, tab]);
 
-  useEffect(refetch, [tab]);
+  useEffect(() => {
+    if (refetch) refetch();
+  }, [tab, refetch]);
 
   useEffect(() => {
     if (taRef.current) {
