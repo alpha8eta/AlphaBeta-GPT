@@ -7,9 +7,8 @@
     "build": "yarn setup && next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --ignore-path .gitignore --write \"**/*.{js,ts,tsx}\"",
     "copy-rui": "cp index.js node_modules/",
-    "setup": "yarn && node server/script/initializeStore && yarn copy-rui && yarn format"
+    "setup": "yarn && node server/script/initializeStore && yarn copy-rui"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -52,5 +51,11 @@
     "eslint-config-next": "13.1.6",
     "prettier": "^2.7.1",
     "typescript": "4.9.5"
+  },
+  "lint-staged": {
+    "*.+(ts|tsx)": [
+      "eslint --fix",
+      "prettier --write --ignore-unknown"
+    ]
   }
 }
