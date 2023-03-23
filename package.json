@@ -9,7 +9,7 @@
     "lint": "next lint",
     "copy-rui": "cp index.js node_modules/",
     "init-vector-store": "node server/script/initializeStore",
-    "setup": "yarn init-vector-store && yarn copy-rui"
+    "setup": "yarn copy-rui"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
