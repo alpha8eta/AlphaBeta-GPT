@@ -40,8 +40,7 @@ const { OpenAIEmbeddings } = require("langchain/embeddings");
   );
 
   console.clear();
-  console.log("Saving Vectorstore");
-
+  console.log("Saving Vectorstore to " + path.join(process.cwd(), 'vectorStore'));
   store.save(path.join(process.cwd(), 'vectorStore'));
 
   console.clear();
