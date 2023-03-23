@@ -36,9 +36,10 @@ Amjad Masad:`;
 
 let store: HNSWLib;
 
-(async () => {
+let storeLoader = (async () => {
   store = await HNSWLib.load("vectorStore", new OpenAIEmbeddings());
   console.clear();
+  console.log("Loaded vector store.")
 })();
 
 const generateResponse = async ({
@@ -70,6 +71,9 @@ const generateResponse = async ({
       prompt,
     });
 
+    if (!store) {
+      await storeLoader
+    }
     const data = await store.similaritySearch(question, 1);
     const context = [];
     if (userContext) context.push(userContext);

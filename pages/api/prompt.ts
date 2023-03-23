@@ -1,6 +1,6 @@
 import nc from "next-connect";
 import { NextApiRequest, NextApiResponse } from "next";
-import isReplAuthed from "../../server/lib/auth/isReplAuthed";
+// import isReplAuthed from "../../server/lib/auth/isReplAuthed";
 import createRateLimiter from "../../server/lib/auth/rateLimiter";
 import { Quota, Response } from "server/mongo";
 import calculateQuota from "server/lib/calculateQuota";
@@ -8,16 +8,17 @@ import generateResponse from "server/lib/generateResponse";
 
 const app = nc();
 
-app.use(isReplAuthed);
-app.use(
-  createRateLimiter({
-    maxRequests: 20,
-    windowMs: 1000 * 60,
-  })
-);
+// app.use(isReplAuthed);
+// app.use(
+//   createRateLimiter({
+//     maxRequests: 20,
+//     windowMs: 1000 * 60,
+//   })
+// );
 app.post(async (req: NextApiRequest, res: NextApiResponse) => {
   const { prompt, history, apiKey } = req.body;
-  const username = req.headers["x-replit-user-name"];
+  // const username = req.headers["x-replit-user-name"];
+  const username ="Playground"
   const bio = req.headers["x-replit-user-bio"];
   const roles = String(req.headers["x-replit-user-roles"]);
 
@@ -54,9 +55,9 @@ Alternatively, you can try out [Ghostwriter Chat](https://replit.com/site/ghostw
     });
 
     if (typeof resp === "string") {
-      const userQuota = await Quota.findOne({
-        username,
-      });
+    //   const userQuota = await Quota.findOne({
+    //     username,
+    //   });
 
       const PromptLog = new Response({
         prompt,
@@ -65,18 +66,18 @@ Alternatively, you can try out [Ghostwriter Chat](https://replit.com/site/ghostw
         apiKey: apiKey || null,
       });
 
-      if (userQuota) {
-        if (!userQuota.apiKey) {
-          userQuota.responseCount++;
-        }
-        await userQuota.save();
-      } else {
-        const newUserQuota = new Quota({
-          username,
-          responseCount: 1,
-        });
-        await newUserQuota.save();
-      }
+    //   if (userQuota) {
+    //     if (!userQuota.apiKey) {
+    //       userQuota.responseCount++;
+    //     }
+    //     await userQuota.save();
+    //   } else {
+    //     const newUserQuota = new Quota({
+    //       username,
+    //       responseCount: 1,
+    //     });
+    //     await newUserQuota.save();
+    //   }
       await PromptLog.save();
 
       res.status(200).json({

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 interface ObjectAny {
   [key: string]: any;
@@ -16,7 +16,7 @@ export const useGetJSON = (
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const callback = () => {
+  const callback = useCallback(() => {
     setLoading(true);
     setError(null);
 
@@ -30,7 +30,7 @@ export const useGetJSON = (
         setError(err.toString());
         setLoading(false);
       });
-  };
+  }, []);
 
   useEffect(callback, []);
 

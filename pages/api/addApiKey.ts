@@ -1,22 +1,23 @@
 import nc from "next-connect";
 import createRateLimiter from "server/lib/auth/rateLimiter";
 import { NextApiRequest, NextApiResponse } from "next";
-import isReplAuthed from "server/lib/auth/isReplAuthed";
+// import isReplAuthed from "server/lib/auth/isReplAuthed";
 import { Quota } from "server/mongo";
 
 const app = nc();
 
-app.use(isReplAuthed);
-app.use(
-  createRateLimiter({
-    maxRequests: 5,
-    windowMs: 1000 * 60 * 60,
-  })
-);
+// app.use(isReplAuthed);
+// app.use(
+//   createRateLimiter({
+//     maxRequests: 5,
+//     windowMs: 1000 * 60 * 60,
+//   })
+// );
 app.post(async (req: NextApiRequest, res: NextApiResponse) => {
   const { apiKey } = req.body;
   if (apiKey && apiKey.startsWith("sk-")) {
-    const username = req.headers["x-replit-user-name"];
+    // const username = req.headers["x-replit-user-name"];
+    const username ="Playground"
     const quota = await Quota.findOne({
       username,
     });

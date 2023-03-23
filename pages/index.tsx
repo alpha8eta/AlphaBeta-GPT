@@ -328,19 +328,25 @@ export async function getServerSideProps({
   req: NextApiRequest;
   res: NextApiResponse;
 }) {
-  if (req.headers["x-replit-user-id"]) {
-    return {
-      props: {
-        image: req.headers["x-replit-user-profile-image"],
-        username: req.headers["x-replit-user-name"],
-      },
-    };
-  } else {
-    res.setHeader("set-cookie", "REPL_AUTH=FFFFFFFF; Max-Age=0;");
-    return {
-      redirect: {
-        destination: "/login",
-      },
-    };
-  }
+  // if (req.headers["x-replit-user-id"]) {
+  //   return {
+  //     props: {
+  //       image: req.headers["x-replit-user-profile-image"],
+  //       username: req.headers["x-replit-user-name"],
+  //     },
+  //   };
+  // } else {
+  //   res.setHeader("set-cookie", "REPL_AUTH=FFFFFFFF; Max-Age=0;");
+  //   return {
+  //     redirect: {
+  //       destination: "/login",
+  //     },
+  //   };
+  // }
+  return {
+    props: {
+      image: "/question_icon.png",
+      username: "Playground",
+    },
+  };
 }
