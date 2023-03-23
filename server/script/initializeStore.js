@@ -1,5 +1,6 @@
 const glob = require("glob");
 const fs = require("fs");
+const path = require("path");
 const { CharacterTextSplitter } = require("langchain/text_splitter");
 const { HNSWLib } = require("langchain/vectorstores");
 const { OpenAIEmbeddings } = require("langchain/embeddings");
