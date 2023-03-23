@@ -38,7 +38,9 @@ Amjad Masad:`;
 let store: HNSWLib;
 
 let storeLoader = (async () => {
-  store = await HNSWLib.load(path.join(process.cwd(), 'vectorStore'), new OpenAIEmbeddings());
+  const storePath = path.join(process.cwd(), 'vectorStore');
+  console.log("Loading vector store from " + storePath)
+  store = await HNSWLib.load(storePath, new OpenAIEmbeddings());
   console.clear();
   console.log("Loaded vector store.")
 })();
