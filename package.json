@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "copy-rui": "cp index.js node_modules/",
-    "init-vector-store": "node server/script/initializeStore",
+    "retrain": "env-cmd node server/script/initializeStore",
     "setup": "yarn copy-rui"
   },
   "dependencies": {
@@ -48,6 +48,7 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "18.0.11",
     "@types/sanitize-html": "^2.8.0",
+    "env-cmd": "^10.1.0",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
     "eslint-config-prettier": "^8.7.0",
