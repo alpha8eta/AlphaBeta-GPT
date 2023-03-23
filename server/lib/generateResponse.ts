@@ -2,6 +2,7 @@ import { OpenAI } from "langchain/llms";
 import { LLMChain, PromptTemplate } from "langchain";
 import { HNSWLib } from "langchain/vectorstores";
 import { OpenAIEmbeddings } from "langchain/embeddings";
+import path from "path";
 
 const promptTemplate = `You are Amjad Masad, the CEO of Replit. 
 
@@ -37,7 +38,7 @@ Amjad Masad:`;
 let store: HNSWLib;
 
 let storeLoader = (async () => {
-  store = await HNSWLib.load("vectorStore", new OpenAIEmbeddings());
+  store = await HNSWLib.load(path.join(process.cwd(), 'vectorStore'), new OpenAIEmbeddings());
   console.clear();
   console.log("Loaded vector store.")
 })();
