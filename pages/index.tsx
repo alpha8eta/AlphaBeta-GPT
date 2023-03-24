@@ -301,7 +301,6 @@ const Home = ({ image, username }) => {
                   }}
                   disabled={loading}
                   ref={taRef}
-                  maxLength={500}
                 />
                 <Button
                   text="Send"

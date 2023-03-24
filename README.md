@@ -38,9 +38,14 @@ One response is one question asked followed by one answer from the chatbot.  You
    - `DEFALT_QUOTA_LIMIT` - number (set to ten in this repl)
    - `MONGO_URI` - a MongoDB database URI
    - `OPENAI_API_KEY` - An OpenAI API key
-2. Run `yarn dev` or `yarn build && yarn start`
+2. Run `yarn setup && yarn dev` or `yarn build && yarn start`
 3. Done!
 
+# Retrain with new training dataset
+
+1. Change training dataset
+2. Run `yarn retrain`
+3. Commit updated files `./vectorStore/*`
 ---
 
 Made with 🧠 & 🔥 by [@IroncladDev](https://twitter.com/IroncladDev)
