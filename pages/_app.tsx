@@ -14,11 +14,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           <meta name="title" content="Amjad GPT" />
           <meta
             property="og:description"
-            content="Amjad GPT is a chatbot trained to speak like Amjad Masad.  Built with LangChain and Next.js"
+            content="Amjad GPT is a chatbot trained to speak like Adam Breckler.  Built with LangChain and Next.js"
           />
           <meta
             name="description"
-            content="Amjad GPT is a chatbot trained to speak like Amjad Masad.  Built with LangChain and Next.js"
+            content="Amjad GPT is a chatbot trained to speak like Adam Breckler.  Built with LangChain and Next.js"
           />
           <meta property="og:image" content="/cover.png" />
           <meta property="og:image:type" content="image/png" />

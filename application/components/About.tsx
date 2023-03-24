@@ -18,12 +18,12 @@ export default function About() {
         },
       ]}
     >
-      <Text variant="subheadBig">Amjad Masad Chatbot</Text>
+      <Text variant="subheadBig">Adam Breckler Chatbot</Text>
       <Text color="dimmer" multiline>
         <MarkdownWrapper>{`
-# Amjad Masad Chatbot
+# Adam Breckler Chatbot
 
-A chatbot trained to act like [Amjad Masad](https://twitter.com/amasad), built with [LangChain](https://twitter.com/langchainai) and Next.js.
+A chatbot trained to act like [Adam Breckler](https://twitter.com/amasad), built with [LangChain](https://twitter.com/langchainai) and Next.js.
 
 The OpenAI model being used is \`text-davinci-003\`, trained with:
  - Major parts of the [Replit docs](https://docs.replit.com)

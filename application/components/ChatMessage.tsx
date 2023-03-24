@@ -5,12 +5,12 @@ export interface ChatMessageType {
   username: string;
   userImage: string;
   message: string;
-  isAmjad: boolean;
+  isPresenter: boolean;
   loading?: boolean;
 }
 
 export const ChatMessage = ({
-  isAmjad,
+  isPresenter,
   userImage,
   username,
   message,
@@ -23,9 +23,9 @@ export const ChatMessage = ({
         rcss.colWithGap(8),
         rcss.p(8),
         {
-          background: isAmjad ? `#ebbf4625` : "transparent",
-          borderTop: isAmjad ? `solid 1px ${tokens.yellowDefault}` : "none",
-          borderBottom: isAmjad ? `solid 1px ${tokens.yellowDefault}` : "none",
+          background: isPresenter ? `#ebbf4625` : "transparent",
+          borderTop: isPresenter ? `solid 1px ${tokens.yellowDefault}` : "none",
+          borderBottom: isPresenter ? `solid 1px ${tokens.yellowDefault}` : "none",
         },
       ]}
     >

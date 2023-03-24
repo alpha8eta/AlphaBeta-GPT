@@ -65,7 +65,7 @@ const Home = ({ image, username }) => {
           username,
           userImage: image,
           message: v,
-          isAmjad: false,
+          isPresenter: false,
         },
       ];
       for (let i = 0; i < out.length; i++) {
@@ -85,8 +85,8 @@ const Home = ({ image, username }) => {
       body: JSON.stringify({
         prompt: v,
         history: historyQueryParam.map(
-          ({ message, isAmjad }) =>
-            `${isAmjad ? "Amjad Masad" : "Human"}: ${message}`
+          ({ message, isPresenter }) =>
+            `${isPresenter ? "Adam Breckler" : "Human"}: ${message}`
         ),
         apiKey: usage?.apiKey || undefined,
       }),
@@ -96,10 +96,10 @@ const Home = ({ image, username }) => {
       setHistory((hist) => [
         ...hist,
         {
-          username: "Amjad Masad",
+          username: "Adam Breckler",
           userImage: "/amjad.jpeg",
           message: answer,
-          isAmjad: true,
+          isPresenter: true,
         },
       ]);
       setLoading(false);
@@ -109,10 +109,10 @@ const Home = ({ image, username }) => {
       setHistory((hist) => [
         ...hist,
         {
-          username: "Amjad Masad",
+          username: "Adam Breckler",
           userImage: "/amjad.jpeg",
           message: `An error occurred: ${message}`,
-          isAmjad: true,
+          isPresenter: true,
         },
       ]);
       setLoading(false);
@@ -147,7 +147,7 @@ const Home = ({ image, username }) => {
       css={[rcss.flex.grow(1), rcss.flex.row, rcss.justify.center, rcss.p(16)]}
     >
       <Head>
-        <title>Amjad Masad Chatbot</title>
+        <title>Adam Breckler Chatbot</title>
       </Head>
 
       <View
@@ -181,7 +181,7 @@ const Home = ({ image, username }) => {
             ]}
           >
             <Tab
-              text="Amjad Masad"
+              text="Adam Breckler"
               icon={<GhostwriterIcon />}
               onClick={() => setTab(0)}
               isFocused={tab === 0}
@@ -234,17 +234,17 @@ const Home = ({ image, username }) => {
               >
                 {history.length === 0 ? <IntroInfo submit={submit} /> : null}
 
-                {history.map(({ message, userImage, username, isAmjad }, i) => (
+                {history.map(({ message, userImage, username, isPresenter }, i) => (
                   <ChatMessage
                     key={i}
                     message={
-                      i === history.length - 1 && isAmjad
+                      i === history.length - 1 && isPresenter
                         ? lastMessage.join(" ")
                         : message
                     }
                     userImage={userImage}
                     username={username}
-                    isAmjad={isAmjad}
+                    isPresenter={isPresenter}
                   />
                 ))}
 
@@ -252,8 +252,8 @@ const Home = ({ image, username }) => {
                   <ChatMessage
                     message={randomLoadMessage}
                     userImage="/amjad.jpeg"
-                    username="Amjad Masad"
-                    isAmjad
+                    username="Adam Breckler"
+                    isPresenter
                     loading={loading}
                   />
                 ) : null}

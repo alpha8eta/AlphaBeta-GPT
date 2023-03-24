@@ -35,7 +35,7 @@ const IntroInfo = ({ submit }: { submit: (v: string) => void }) => {
           height="64"
         />
       </View>
-      <Text variant="subheadDefault">Amjad Masad</Text>
+      <Text variant="subheadDefault">Adam Breckler</Text>
       <Text color="dimmer" multiline>
         This is the beginning of your direct message history with{" "}
         <strong>

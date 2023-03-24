@@ -1,6 +1,6 @@
 # Amjad GPT
 
-A chatbot trained to act like [Amjad Masad](https://twitter.com/amasad), built with [LangChain](https://twitter.com/langchainai) and Next.js.
+A chatbot trained to act like [Adam Breckler](https://twitter.com/amasad), built with [LangChain](https://twitter.com/langchainai) and Next.js.
 
 This is only the frontend part of this project; The OpenAI model with Langchain is hosted in another Repl.
 
