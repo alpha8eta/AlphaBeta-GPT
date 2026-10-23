@@ -1,76 +1,29 @@
+import mongoose from "mongoose";
 import { Quota } from "server/mongo";
-import Gql from "./gql";
 import { NextApiRequest } from "next";
+import { toPublicQuota, PublicQuota } from "server/lib/publicQuota";
 
-const gql = new Gql("");
+export default async function calculateQuota(
+  req: NextApiRequest
+): Promise<PublicQuota> {
+  const username = String(req.headers["x-replit-user-name"] || "");
+  let hasApiKey = false;
+  let usage = 0;
+  const total = Number(process.env.DEFAULT_QUOTA_LIMIT) || 100;
 
-export default async function calculateQuota(req: NextApiRequest) {
-  return {
-    total: 100,
-    usage: 0,
-    apiKey: process.env.OPENAI_API_KEY,
-  };
+  try {
+    if (username && mongoose.connection.readyState === 1) {
+      const quota = await Quota.findOne({ username }).select(
+        "apiKey responseCount"
+      );
+      if (quota) {
+        hasApiKey = Boolean(quota.apiKey);
+        usage = quota.responseCount || 0;
+      }
+    }
+  } catch {
+    // Quota lookup is best-effort. Never include secrets in the result.
+  }
 
-  // const username = String(req.headers["x-replit-user-name"]);
-
-  // let usage = 0;
-  // let total = Number(process.env.DEFAULT_QUOTA_LIMIT);
-
-  // const quota = await Quota.findOne({
-  //   username,
-  // });
-  // if (quota) {
-  //   const gqlReq = await gql.raw({
-  //     query: `query repl($id: String!) {
-  //       repl(id: $id) {
-  //         ...on Repl {
-  //           topTippers {
-  //             user {
-  //               username
-  //             }
-  //             totalCyclesTipped
-  //           }
-  //         }
-  //       }
-  //     }`,
-  //     variables: {
-  //       id: process.env.REPL_ID,
-  //     },
-  //   });
-  //   if (quota) {
-  //     usage = quota.responseCount;
-  //   }
-  //   if (gqlReq?.data?.repl?.topTippers?.length) {
-  //     const tips = gqlReq.data.repl.topTippers;
-  //     const tipsByUser = tips.find((x) => x.user.username === username);
-  //     if (tipsByUser) {
-  //       total += Math.floor(tipsByUser.totalCyclesTipped / 5);
-  //     }
-  //   }
-
-  //   if (quota.apiKey) {
-  //     return {
-  //       usage: 0,
-  //       total: 1,
-  //       apiKey: quota.apiKey,
-  //     };
-  //   }
-
-  //   return {
-  //     total,
-  //     usage,
-  //     apiKey: null,
-  //   };
-  // } else {
-  //   const q = new Quota({
-  //     username,
-  //     responseCount: 0,
-  //   });
-  //   q.save();
-  //   return {
-  //     total,
-  //     usage: 0,
-  //     apiKey: null,
-  //   };
-  // }
+  return toPublicQuota({ total, usage, hasApiKey });
 }

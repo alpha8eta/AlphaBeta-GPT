@@ -1,24 +1,16 @@
 import nc from "next-connect";
 import { NextApiRequest, NextApiResponse } from "next";
-// import isReplAuthed from "../../server/lib/auth/isReplAuthed";
-import createRateLimiter from "../../server/lib/auth/rateLimiter";
+import isReplAuthed from "../../server/lib/auth/isReplAuthed";
 import { Quota, Response } from "server/mongo";
 import calculateQuota from "server/lib/calculateQuota";
 import generateResponse from "server/lib/generateResponse";
 
 const app = nc();
 
-// app.use(isReplAuthed);
-// app.use(
-//   createRateLimiter({
-//     maxRequests: 20,
-//     windowMs: 1000 * 60,
-//   })
-// );
+app.use(isReplAuthed);
 app.post(async (req: NextApiRequest, res: NextApiResponse) => {
-  const { prompt, history, apiKey } = req.body;
-  // const username = req.headers["x-replit-user-name"];
-  const username ="Playground"
+  const { prompt, history } = req.body;
+  const username = String(req.headers["x-replit-user-name"] || "");
   const bio = req.headers["x-replit-user-bio"];
   const roles = String(req.headers["x-replit-user-roles"]);
 
@@ -27,8 +19,8 @@ app.post(async (req: NextApiRequest, res: NextApiResponse) => {
     Array.isArray(history) &&
     history.every((e) => typeof e === "string")
   ) {
-    const { total, usage } = await calculateQuota(req);
-    if (usage >= total) {
+    const { total, usage, hasApiKey } = await calculateQuota(req);
+    if (!hasApiKey && usage >= total) {
       res.status(429).json({
         success: true,
         answer: `You've used up your quota of ${total} responses.  If you would like to increase your quota, you can add your own OpenAI API key in settings, or [tip this Repl](https://ai.repl.page/__repl).
@@ -47,37 +39,32 @@ Alternatively, you can try out [Ghostwriter Chat](https://replit.com/site/ghostw
             .join(", ")}`
         : "");
 
+    let userApiKey: string | undefined;
+    try {
+      const quota = username
+        ? await Quota.findOne({ username }).select("apiKey")
+        : null;
+      if (quota?.apiKey) {
+        userApiKey = quota.apiKey;
+      }
+    } catch {
+      userApiKey = undefined;
+    }
+
     const resp = await generateResponse({
       history,
       question: prompt,
-      apiKey,
+      apiKey: userApiKey,
       userContext,
     });
 
     if (typeof resp === "string") {
-    //   const userQuota = await Quota.findOne({
-    //     username,
-    //   });
-
       const PromptLog = new Response({
         prompt,
         response: resp,
         username,
-        apiKey: apiKey || null,
       });
 
-    //   if (userQuota) {
-    //     if (!userQuota.apiKey) {
-    //       userQuota.responseCount++;
-    //     }
-    //     await userQuota.save();
-    //   } else {
-    //     const newUserQuota = new Quota({
-    //       username,
-    //       responseCount: 1,
-    //     });
-    //     await newUserQuota.save();
-    //   }
       await PromptLog.save();
 
       res.status(200).json({
