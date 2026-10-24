@@ -45,7 +45,7 @@ const Home = ({ image, username }) => {
     loadingMessages[Math.floor(Math.random() * loadingMessages.length)]
   );
   const [tab, setTab] = useAtom(tabAtom);
-  const { data: usage, refetch } = useGetJSON("/api/getQuota");
+  const { refetch } = useGetJSON("/api/getQuota");
 
   const lastMessage = useType(history);
 
@@ -88,7 +88,6 @@ const Home = ({ image, username }) => {
           ({ message, isPresenter }) =>
             `${isPresenter ? "Adam Breckler" : "Human"}: ${message}`
         ),
-        apiKey: usage?.apiKey || undefined,
       }),
     }).then((r) => r.json());
 

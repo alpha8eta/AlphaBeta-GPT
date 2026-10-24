@@ -33,6 +33,14 @@ MemoryContext: {context}
 Human: {question}
 Adam Breckler:`;
 
+function safeErrorMessage(error: unknown): string {
+  const message = error instanceof Error ? error.message : String(error);
+  if (/sk-[A-Za-z0-9_-]+/i.test(message) || /api[_-]?key/i.test(message)) {
+    return "The language model request failed. Please try again.";
+  }
+  return message;
+}
+
 let store: HNSWLib;
 
 let storeLoader = (async () => {
@@ -87,7 +95,7 @@ const generateResponse = async ({
       history,
     });
   } catch (e) {
-    return e.toString();
+    return safeErrorMessage(e);
   }
 };
 

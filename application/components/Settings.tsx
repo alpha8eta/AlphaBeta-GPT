@@ -48,8 +48,8 @@ export default function Settings() {
   });
 
   useEffect(() => {
-    if (usage?.apiKey) {
-      setApiKey(usage?.apiKey);
+    if (!usage?.hasApiKey) {
+      setApiKey("");
     }
   }, [usage]);
 
@@ -105,22 +105,24 @@ export default function Settings() {
             <View css={[rcss.flex.row, rcss.rowWithGap(4), rcss.align.center]}>
               <Text>
                 Usage (
-                {usage?.apiKey
+                {usage?.hasApiKey
                   ? 0
-                  : Math.round((usage.usage / usage.total) * 100)}
+                  : usage?.total
+                  ? Math.round((usage.usage / usage.total) * 100)
+                  : 0}
                 %)
               </Text>
               <IconButton
                 alt={
-                  usage?.apiKey ? (
+                  usage?.hasApiKey ? (
                     <Text variant="small" multiline>
                       Since you are using your own api key, your quota will not
                       be calculated.
                     </Text>
                   ) : (
                     <Text variant="small" multiline>
-                      You've used {usage.usage}/{usage.total} responses. Click
-                      to read more
+                      You've used {usage?.usage ?? 0}/{usage?.total ?? 0}{" "}
+                      responses. Click to read more
                     </Text>
                   )
                 }
@@ -151,7 +153,11 @@ export default function Settings() {
                     left: 0,
                     height: "100%",
                     width: `${
-                      usage?.apiKey ? 100 : (usage.usage / usage.total) * 100
+                      usage?.hasApiKey
+                        ? 100
+                        : usage?.total
+                        ? (usage.usage / usage.total) * 100
+                        : 0
                     }%`,
                   },
                 ]}
@@ -169,7 +175,11 @@ export default function Settings() {
         </Text>
         <View css={[rcss.flex.row, rcss.rowWithGap(4)]}>
           <Input
-            placeholder="sk-Ax03..."
+            placeholder={
+              usage?.hasApiKey
+                ? "Key stored — enter a new one to replace"
+                : "sk-Ax03..."
+            }
             value={apiKey}
             onChange={(e) => setApiKey(e.target.value)}
           />

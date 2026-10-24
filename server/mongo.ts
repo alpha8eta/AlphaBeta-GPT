@@ -42,4 +42,6 @@ export const Response =
   mongoose.model<IResponse, ResponseModel>("Response", ResponseSchema);
 
 mongoose.set("strictQuery", true);
-mongoose.connect(process.env.MONGO_URI);
+if (process.env.MONGO_URI) {
+  mongoose.connect(process.env.MONGO_URI);
+}
